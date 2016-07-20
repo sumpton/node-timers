@@ -1,29 +1,30 @@
 'use strict';
 
-var simple = require('./simple');
+const simple = require('./simple');
 
 module.exports = function (options) {
+    options = options || {};
+    options.pollInterval = options.pollInterval || 250;
+    options.finishTime = options.finishTime || 0;
 
-  options = options || {};
-  options.pollInterval = options.pollInterval || 250;
-  options.finishTime = options.finishTime || 0;
+    const timer = simple(options);
+    const originalTimeFunc = timer.time;
 
-  var timer = simple(options),
-      originalTimeFunc = timer.time;
-  
-  timer.time = function(newTime){
-    var elapsedTime = originalTimeFunc.call(timer, newTime);
-    if (elapsedTime >= options.finishTime) elapsedTime = options.finishTime;
-    return elapsedTime;
-  };
+    timer.time = function (newTime) {
+        let elapsedTime = originalTimeFunc.call(timer, newTime);
+        if (elapsedTime >= options.finishTime) {
+            elapsedTime = options.finishTime;
+        }
+        return elapsedTime;
+    };
 
-  timer.on('poll', function(timePassed){
-    if (timePassed === options.finishTime) {
-      timer
-        .stop()
-        .emit('done', timePassed);
-    }
-  });
+    timer.on('poll', function (timePassed) {
+        if (timePassed === options.finishTime) {
+            timer
+                .stop()
+                .emit('done', timePassed);
+        }
+    });
 
-  return timer;
+    return timer;
 };

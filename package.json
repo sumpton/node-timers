@@ -12,6 +12,9 @@
   },
   "author": "Scott Morrice",
   "devDependencies": {
+    "eslint": "^3.0.1",
+    "eslint-config-airbnb-base": "^4.0.2",
+    "eslint-plugin-import": "^1.10.3",
     "tape": "~2.13.0"
   }
 }
