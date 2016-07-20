@@ -1,32 +1,32 @@
 'use strict';
 
-var test = require('tape'),
-    timer = require('../simple');
+const test = require('tape');
+const timer = require('../simple');
 
 test('Simple timer signature', function (t) {
-    var simpleTimer = timer();
-    t.ok(simpleTimer, "should be a new timer object");
-    t.ok(simpleTimer.start, "should have a start method");
-    t.ok(simpleTimer.stop, "should have a stop method");
-    t.ok(simpleTimer.reset, "should have a reset method");
-    t.ok(simpleTimer.time, "should have a get time method");
-    t.ok(simpleTimer.state, "should have a state method");
+    const simpleTimer = timer();
+    t.ok(simpleTimer, 'should be a new timer object');
+    t.ok(simpleTimer.start, 'should have a start method');
+    t.ok(simpleTimer.stop, 'should have a stop method');
+    t.ok(simpleTimer.reset, 'should have a reset method');
+    t.ok(simpleTimer.time, 'should have a get time method');
+    t.ok(simpleTimer.state, 'should have a state method');
     t.end();
 });
 
 test('Simple timer time', function (t) {
     var simpleTimer = timer();
-    t.equal(simpleTimer.time(), 0, "unstarted timers time should be 0");
+    t.equal(simpleTimer.time(), 0, 'unstarted timers time should be 0');
     simpleTimer.start();
     setTimeout(function () {
-        t.ok(simpleTimer.time() > 0, "started timers time should be greater than 0");
+        t.ok(simpleTimer.time() > 0, 'started timers time should be greater than 0');
         t.end();
     });
 });
 
 test('Simple timer stop and reset', function (t) {
-    var simpleTimer = timer({ pollInterval: 100 }).start(),
-        step = 0;
+    const simpleTimer = timer({ pollInterval: 100 }).start();
+    let step = 0;
 
     t.plan(3);
     simpleTimer.on('poll', function () {
@@ -42,6 +42,8 @@ test('Simple timer stop and reset', function (t) {
             case 3:
                 simpleTimer.reset();
                 t.equal(simpleTimer.state(), 'clean', 'timer should be in a clean state');
+                break;
+            default:
                 break;
         }
     });

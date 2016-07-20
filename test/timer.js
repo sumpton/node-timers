@@ -1,9 +1,9 @@
 'use strict';
 
-var test = require('tape'),
-    timer = require('../timer');
+const test = require('tape');
+// const timer = require('../timer');
 
-test('timer poll', function(t){
-  t.pass();
-  t.end();
+test('timer poll', function (t) {
+    t.pass();
+    t.end();
 });

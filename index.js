@@ -1,6 +1,7 @@
 'use strict';
 
-//noinspection Eslint
+/* eslint-disable global-require */
+
 module.exports = {
     simple: require('./simple'),
     timer: require('./timer'),
